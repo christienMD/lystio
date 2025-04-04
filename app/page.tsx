@@ -1,3 +1,4 @@
+import ListsHeader from "@/components/ListsHeader";
 import Navbar from "@/components/Navbar";
 import SearchInput from "@/components/SearchInput";
 
@@ -8,6 +9,7 @@ export default function Home() {
       <div className="sm:hidden my-4 w-full flex items-center justify-center px-4">
         <SearchInput />
       </div>
+      <ListsHeader />
     </>
   );
 }
