@@ -1,9 +1,4 @@
-import Link from "next/link";
-
-const Logo = () => {
-  return (
-    <Link href="/">
-      <svg
+    <svg
         width="60"
         height="28.5"
         viewBox="0 0 80 38"
@@ -68,8 +63,3 @@ const Logo = () => {
           fill="#A540F3"
         />
       </svg>
-    </Link>
-  );
-};
-
-export default Logo;
