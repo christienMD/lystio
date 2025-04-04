@@ -1,3 +1,4 @@
+import Listings from "@/components/Listings";
 import ListsHeader from "@/components/ListsHeader";
 import Navbar from "@/components/Navbar";
 import SearchInput from "@/components/SearchInput";
@@ -10,6 +11,7 @@ export default function Home() {
         <SearchInput />
       </div>
       <ListsHeader />
+      <Listings />
     </>
   );
 }
