@@ -1,6 +1,6 @@
-import Listings from "@/components/Listings";
-import ListsHeader from "@/components/ListsHeader";
-import Navbar from "@/components/Navbar";
+import Listings from "@/components/sections/Listings";
+import ListsHeader from "@/components/sections/ListsHeader";
+import Navbar from "@/components/sections/Navbar";
 import SearchInput from "@/components/SearchInput";
 
 export default function Home() {
