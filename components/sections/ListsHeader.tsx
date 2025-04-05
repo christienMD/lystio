@@ -7,7 +7,6 @@ import PriceFilter from "../ListsHeader/PriceFilter";
 import SortButton from "../ListsHeader/SortButton";
 
 
-// Property types options
 const propertyTypeOptions = [
   { id: "house", label: "House" },
   { id: "apartment", label: "Apartment" },
@@ -16,14 +15,12 @@ const propertyTypeOptions = [
   { id: "townhouse", label: "Townhouse" },
 ];
 
-// Rent options
 const rentOptions = [
   { id: "monthly", label: "Monthly" },
   { id: "weekly", label: "Weekly" },
   { id: "daily", label: "Daily" },
 ];
 
-// Apartment options
 const apartmentOptions = [
   { id: "studio", label: "Studio" },
   { id: "1bed", label: "1 Bedroom" },
@@ -31,7 +28,6 @@ const apartmentOptions = [
   { id: "3plus", label: "3+ Bedroom" },
 ];
 
-// Beds/baths options
 const bedsOptions = [
   { id: "1bed", label: "1 Bed" },
   { id: "2bed", label: "2 Beds" },
@@ -40,26 +36,22 @@ const bedsOptions = [
   { id: "5plus", label: "5+ Beds" },
 ];
 
-// Living rooms options
 const livingRoomsOptions = [
   { id: "1lr", label: "1 Living Room" },
   { id: "2lr", label: "2 Living Rooms" },
   { id: "3plus", label: "3+ Living Rooms" },
 ];
 
-// Pets options
 const petsOptions = [
   { id: "allowed", label: "Allowed" },
   { id: "notAllowed", label: "Not Allowed" },
 ];
 
-// Deposit options
 const depositOptions = [
   { id: "required", label: "Required" },
   { id: "notRequired", label: "Not Required" },
 ];
 
-// Sort options
 const sortOptions = [
   { id: "all", label: "All" },
   { id: "newest", label: "Newest" },

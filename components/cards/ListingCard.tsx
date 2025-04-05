@@ -10,8 +10,11 @@ import { Pagination, Autoplay } from "swiper/modules";
 import { cn } from "@/lib/utils";
 import "swiper/css";
 import "swiper/css/pagination";
+
 import { Listing } from "@/entities/Listing";
 import { formatDate} from "@/lib/utils";
+const defaultImage = "/images/apartment1.png";
+
 
 interface Props {
   data: Listing;
@@ -22,8 +25,13 @@ const ListingCard = ({ data, className = "" }: Props) => {
   const isList = className.includes("flex-card");
 
   const images = data.media
-    ? data.media.filter((m) => m.type === "photo").map((m) => m.cdnUrl)
-    : ["/images/appartment1.png"];
+  ? data.media
+      .filter(m => m.type === "photo")
+      .map(m => m.cdnUrl)
+  : [];
+
+// Use default image if no images are available
+const listingImages = images.length > 0 ? images : [defaultImage];
 
   const formattedAddress = `${data.address}, ${data.zip} ${data.city}`;
 
@@ -69,7 +77,7 @@ const ListingCard = ({ data, className = "" }: Props) => {
           }}
           className="h-full w-full listing-swiper"
         >
-          {images.map((image, index) => (
+          {listingImages.map((image, index) => (
             <SwiperSlide key={index}>
               <div className="relative w-full h-full">
                 <Image
