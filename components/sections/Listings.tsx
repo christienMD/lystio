@@ -5,8 +5,14 @@ import ListingCard from "@/components/cards/ListingCard";
 import ListingHeader from "./ListingHeader";
 import { listings } from "@/utils/data";
 import GooleMapListing from "./GooleMapListing";
+import { DEFAULT_FILTER_PAYLOAD } from "@/lib/api";
+import { useListings } from "@/hooks/useListings";
 
 const Listings = () => {
+   const { data, isLoading, error } = useListings(DEFAULT_FILTER_PAYLOAD);
+
+   console.log('listings: ', data)
+
   const [viewType, setViewType] = useState<"grid" | "list" | "compact">("grid");
   const [sortBy, setSortBy] = useState("relevance");
 

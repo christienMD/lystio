@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Heart } from "lucide-react";
+import { Bookmark } from "lucide-react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import VerifiedBadge from "@/components/VerifiedBadge";
@@ -98,7 +98,7 @@ const ListingCard = ({ data, className = "" }: Props) => {
           className="absolute top-3 right-3 bg-white p-1.5 rounded-md z-10 hover:bg-white/90 transition"
           aria-label="Save to favorites"
         >
-          <Heart size={18} className="text-gray-500" />
+          <Bookmark size={18} className="text-gray-500" />
         </button>
       </div>
 
