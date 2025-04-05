@@ -1,3 +1,9 @@
+import { Listing } from "@/entities/Listing";
+
+export interface ApiResponse {
+    res: Listing[];
+  }
+
 export const API_ENDPOINTS = {
     TENEMENT_SEARCH: '/tenement/search',
     TENEMENT_SEARCH_MAP: '/tenement/search/map'
@@ -73,9 +79,10 @@ export const API_ENDPOINTS = {
     };
   }
   
+
   
    // fetsh listings
-  export async function fetchListings(filterPayload: ListingsPayload = DEFAULT_FILTER_PAYLOAD) {
+  export async function fetchListings(filterPayload: ListingsPayload = DEFAULT_FILTER_PAYLOAD): Promise<ApiResponse> {
     const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
     
     const response = await fetch(`${baseUrl}${API_ENDPOINTS.TENEMENT_SEARCH}`, {
