@@ -4,6 +4,7 @@ import { useState } from "react";
 import ListingCard from "@/components/cards/ListingCard";
 import ListingHeader from "./ListingHeader";
 import { listings } from "@/utils/data";
+import GooleMapListing from "./GooleMapListing";
 
 const Listings = () => {
   const [viewType, setViewType] = useState<"grid" | "list" | "compact">("grid");
@@ -38,7 +39,7 @@ const Listings = () => {
       <div className="flex flex-col lg:flex-row gap-4 sm:gap-6">
         {/* Left side - map */}
         <div className="order-2 lg:order-1 lg:w-1/2 bg-gray-100 rounded-lg min-h-[300px] sm:min-h-[400px]">
-        
+        <GooleMapListing />
         </div>
 
         {/* Right side - listings */}
