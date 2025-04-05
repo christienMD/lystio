@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Listing } from "@/entities/Listing";
-import { formatDate, formatPrice } from "@/lib/utils";
+import { formatDate} from "@/lib/utils";
 
 interface Props {
   data: Listing;
@@ -23,8 +23,7 @@ const ListingCard = ({ data, className = "" }: Props) => {
 
   const images = data.media
     ? data.media.filter((m) => m.type === "photo").map((m) => m.cdnUrl)
-    : [];
-    const listingImages = images.length > 0 ? images : "/images/appartment1.png"
+    : ["/images/appartment1.png"];
 
   const formattedAddress = `${data.address}, ${data.zip} ${data.city}`;
 

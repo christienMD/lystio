@@ -43,6 +43,7 @@ export const formatRentRange = (min: number, max: number): string => {
   return `${minFormatted} - ${maxFormatted}`;
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getImageUrls = (media: any[]): string[] => {
   return media
     .filter(m => m.type === "photo")

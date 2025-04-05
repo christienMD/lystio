@@ -1,19 +1,17 @@
 "use client";
 
-import { useCallback, useState } from "react";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
+import { useCallback, useState } from "react";
 
-// Define the type for the map
 type MapType = google.maps.Map;
 
-// Remove the fixed dimensions from containerStyle
 const containerStyle = {
   width: "100%",
   height: "100%",
 };
 
 const center = {
-  lat: 48.2082, // Updated to Vienna coordinates
+  lat: 48.2082,
   lng: 16.3738,
 };
 
@@ -23,7 +21,8 @@ const GoogleMapListing = () => {
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!,
   });
 
-  const [map, setMap] = useState<MapType | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_map, setMap] = useState<MapType | null>(null);
 
   const onLoad = useCallback(function callback(map: MapType) {
     setMap(map);

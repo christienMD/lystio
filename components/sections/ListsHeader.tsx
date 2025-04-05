@@ -6,7 +6,6 @@ import FilterOption from "../ListsHeader/FilterOption";
 import PriceFilter from "../ListsHeader/PriceFilter";
 import SortButton from "../ListsHeader/SortButton";
 
-interface Props {}
 
 // Property types options
 const propertyTypeOptions = [
@@ -68,7 +67,7 @@ const sortOptions = [
   { id: "price_desc", label: "Price: High to Low" },
 ];
 
-const ListsHeader = ({}: Props) => {
+const ListsHeader = () => {
   return (
     <div className="w-full border-b border-gray-200 bg-white">
       <div className="container mx-auto px-4">
