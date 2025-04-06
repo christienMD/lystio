@@ -9,17 +9,17 @@ import ListingSkeleton from "../skeletons/ListingSkeleton";
 
 const Listings = () => {
   const [filters, setFilters] = useState<ListingsFilter>({
-    priceMin: 0,
-    priceMax: 10000,
+    priceMin: 1,
+    priceMax: 20000,
     page: 1,
     pageSize: 4,
+    sort: "relevance",
   });
 
   const { data, isLoading, error } = useListings(filters);
   const listings = data?.res || [];
 
   const [viewType, setViewType] = useState<"grid" | "list" | "compact">("grid");
-  const [sortBy, setSortBy] = useState("relevance");
 
   const handleFilterChange = (newFilters: Partial<ListingsFilter>) => {
     setFilters((prev) => ({
@@ -33,7 +33,10 @@ const Listings = () => {
   };
 
   const handleSortChange = (sort: string) => {
-    setSortBy(sort);
+    setFilters((prev) => ({
+      ...prev,
+      sort,
+    }));
   };
 
   const handlePageChange = (page: number) => {
@@ -56,7 +59,6 @@ const Listings = () => {
     }
   };
 
-
   if (error) {
     return (
       <div className="container mx-auto py-4 px-3 sm:py-6 sm:px-4">
@@ -77,7 +79,7 @@ const Listings = () => {
             title="Listing around me"
             count={listings.length || 0}
             currentView={viewType}
-            currentSort={sortBy}
+            currentSort={filters.sort}
             onViewChange={handleViewChange}
             onSortChange={handleSortChange}
           />
@@ -88,9 +90,19 @@ const Listings = () => {
             <div className="p-4 text-center text-red-500">
               Error loading listings
             </div>
+          ) : listings.length === 0 ? (
+            <div className="p-8 text-center bg-gray-50 rounded-lg border border-gray-200">
+              <div className="text-lg font-medium text-gray-800 mb-2">
+                No listings found
+              </div>
+              <p className="text-gray-600">
+                There are no properties matching your current filters. Try
+                adjusting your search criteria.
+              </p>
+            </div>
           ) : (
             <div className={`grid ${getGridLayout()}`}>
-              {listings?.map((listing) => (
+              {listings.map((listing) => (
                 <ListingCard
                   key={listing.id}
                   data={listing}

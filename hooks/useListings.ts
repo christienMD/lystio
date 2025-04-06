@@ -25,7 +25,7 @@ interface SortObject {
 }
 
 export function useListings(filters: ListingsFilter = {}) {
-    const sortObject: SortObject = {};
+  const sortObject: SortObject = {};
   if (filters.sort) {
     switch (filters.sort) {
       case "price_asc":
@@ -37,13 +37,15 @@ export function useListings(filters: ListingsFilter = {}) {
       case "date":
         sortObject["createdAt"] = "desc";
         break;
-      // Default (relevance) doesn't need any specific sort
     }
   }
 
+  const minPrice = filters.priceMin || 0;
+  const maxPrice = filters.priceMax || 999999999;
+
   const filterPayload = {
     filter: {
-      rent: [filters.priceMin || 0, filters.priceMax || 999999],
+      rent: [minPrice, maxPrice],
       ...(filters.propertyType && { type: [parseInt(filters.propertyType)] }),
       ...(filters.rentType && { rentType: [filters.rentType] }),
       ...(filters.beds && { roomsBed: [parseInt(filters.beds)] }),
