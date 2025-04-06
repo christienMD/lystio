@@ -21,12 +21,12 @@ const Listings = () => {
 
   const [viewType, setViewType] = useState<"grid" | "list" | "compact">("grid");
 
-  const handleFilterChange = (newFilters: Partial<ListingsFilter>) => {
-    setFilters((prev) => ({
-      ...prev,
-      ...newFilters,
-    }));
-  };
+  // const handleFilterChange = (newFilters: Partial<ListingsFilter>) => {
+  //   setFilters((prev) => ({
+  //     ...prev,
+  //     ...newFilters,
+  //   }));
+  // };
 
   const handleViewChange = (view: "grid" | "list" | "compact") => {
     setViewType(view);
@@ -39,12 +39,12 @@ const Listings = () => {
     }));
   };
 
-  const handlePageChange = (page: number) => {
-    setFilters((prev) => ({
-      ...prev,
-      page,
-    }));
-  };
+  // const handlePageChange = (page: number) => {
+  //   setFilters((prev) => ({
+  //     ...prev,
+  //     page,
+  //   }));
+  // };
 
   const getGridLayout = () => {
     switch (viewType) {
