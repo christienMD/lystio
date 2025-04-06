@@ -2,6 +2,12 @@ import { Listing } from "@/entities/Listing";
 
 export interface ApiResponse {
   res: Listing[];
+  paging: {
+    pageCount: number;
+    page: number;
+    pageSize: number;
+    totalCount: number;
+  };
 }
 
 export const API_ENDPOINTS = {

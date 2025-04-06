@@ -25,7 +25,7 @@ const ListingCard = ({ data, className = "" }: Props) => {
     ? data.media
         .filter(m => m.type === "photo")
         .map(m => m.cdnUrl)
-    : ["/images/apartment1.jpg"];
+    : ["/images/apartment1.png"];
 
   const formattedAddress = `${data.address || ''}, ${data.zip || ''} ${data.city || ''}`.trim();
   
@@ -86,11 +86,11 @@ const ListingCard = ({ data, className = "" }: Props) => {
 
         {/* Top overlay with tags */}
         <div className="absolute top-3 left-3 right-12 flex flex-wrap gap-2 z-10 max-w-[calc(100%-60px)]">
-          {(data.tags || []).map((tag) => (
+          {(data.tags || []).slice(0 ,3).map((tag) => (
             <Badge 
               key={tag} 
               variant="secondary"
-              className="bg-white text-neutral-800 hover:bg-white/90 font-medium rounded-full px-3 py-1 mb-1"
+              className="bg-white text-neutral-800 text-xs hover:bg-white/90 font-medium rounded-full px-2 py-0.5 mb-1"
             >
               {tag}
             </Badge>

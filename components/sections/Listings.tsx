@@ -4,47 +4,35 @@ import { useState } from "react";
 import ListingCard from "@/components/cards/ListingCard";
 import ListingHeader from "./ListingHeader";
 import GooleMapListing from "./GooleMapListing";
-import { useListings, ListingsFilter } from "@/hooks/useListings";
+import { useListings } from "@/hooks/useListings";
 import ListingSkeleton from "../skeletons/ListingSkeleton";
+import useFilterStore from "@/stores/useFiltereStore";
 
 const Listings = () => {
-  const [filters, setFilters] = useState<ListingsFilter>({
-    priceMin: 1,
-    priceMax: 20000,
-    page: 1,
-    pageSize: 4,
-    sort: "relevance",
-  });
-
+  const filters = useFilterStore(state => state.filters);
+  const setSort = useFilterStore(state => state.setSort);
+  
   const { data, isLoading, error } = useListings(filters);
   const listings = data?.res || [];
+  const totalCount = data?.paging?.totalCount || 0;
 
   const [viewType, setViewType] = useState<"grid" | "list" | "compact">("grid");
-
-  // const handleFilterChange = (newFilters: Partial<ListingsFilter>) => {
-  //   setFilters((prev) => ({
-  //     ...prev,
-  //     ...newFilters,
-  //   }));
-  // };
 
   const handleViewChange = (view: "grid" | "list" | "compact") => {
     setViewType(view);
   };
 
   const handleSortChange = (sort: string) => {
-    setFilters((prev) => ({
-      ...prev,
-      sort,
-    }));
+    if (sort === "price_asc") {
+      setSort("asc", "rent");
+    } else if (sort === "price_desc") {
+      setSort("desc", "rent");
+    } else if (sort === "newest") {
+      setSort("desc", "createdAt");
+    } else {
+      setSort(null, "rent");
+    }
   };
-
-  // const handlePageChange = (page: number) => {
-  //   setFilters((prev) => ({
-  //     ...prev,
-  //     page,
-  //   }));
-  // };
 
   const getGridLayout = () => {
     switch (viewType) {
@@ -77,9 +65,9 @@ const Listings = () => {
         <div className="order-1 lg:order-2 lg:w-1/2">
           <ListingHeader
             title="Listing around me"
-            count={listings.length || 0}
+            count={totalCount || listings.length || 0}
             currentView={viewType}
-            currentSort={filters.sort}
+            // currentSort={getSortOption(filters.sort)}
             onViewChange={handleViewChange}
             onSortChange={handleSortChange}
           />
@@ -117,4 +105,4 @@ const Listings = () => {
   );
 };
 
-export default Listings;
+export default Listings

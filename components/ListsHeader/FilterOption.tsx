@@ -9,28 +9,35 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import useFilterStore from "@/stores/useFiltereStore";
 
 interface OptionType {
   id: string;
   label: string;
+  value: number | string; // The actual value to use with the API
 }
 
 interface Props {
   label: string;
   paramName: string;
   options?: OptionType[];
+  filterSetter: (value: any) => void;
 }
 
-const FilterOption = ({ label, paramName, options = [] }: Props) => {
+const FilterOption = ({ label, paramName, options = [], filterSetter }: Props) => {
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const currentValue = searchParams.get(paramName);
+  // Get the current selected value from the store
+  const currentValue = useCurrentValue(paramName);
 
   const handleSelect = (option: OptionType) => {
     const isSelected = currentValue === option.id;
+    // If already selected, clear the filter, otherwise set the new value
+    filterSetter(isSelected ? null : option.value);
 
+    // Update the URL
     const url = qs.stringifyUrl(
       {
         url: pathname,
@@ -85,5 +92,60 @@ const FilterOption = ({ label, paramName, options = [] }: Props) => {
     </DropdownMenu>
   );
 };
+
+// Helper function to determine the current value from the store
+// This will need to be customized based on your specific filter structure
+function useCurrentValue(paramName: string): string | null {
+  const filters = useFilterStore(state => state.filters);
+  
+  switch (paramName) {
+    case "propertyType":
+      return getPropertyTypeId(filters.filter.type?.[0]);
+    case "rentType":
+      return getRentTypeId(filters.filter.rentType?.[0]);
+    case "beds":
+      return getBedsId(filters.filter.roomsBed?.[0]);
+    case "pets":
+      return getPetsId(filters.filter.pets?.[0]);
+    default:
+      return null;
+  }
+}
+
+// Helper functions to map API values back to UI IDs
+function getPropertyTypeId(type?: number): string | null {
+  if (!type) return null;
+  const map: Record<number, string> = {
+    1: "house",
+    2: "apartment",
+    3: "condo",
+    4: "villa",
+    5: "townhouse"
+  };
+  return map[type] || null;
+}
+
+function getRentTypeId(rentType?: string): string | null {
+  if (!rentType) return null;
+  const map: Record<string, string> = {
+    "month": "monthly",
+    "week": "weekly",
+    "day": "daily"
+  };
+  return map[rentType] || null;
+}
+
+function getBedsId(beds?: number): string | null {
+  if (!beds) return null;
+  if (beds >= 5) return "5plus";
+  return `${beds}bed`;
+}
+
+function getPetsId(pets?: string): string | null {
+  if (!pets) return null;
+  if (pets === "allowed") return "allowed";
+  if (pets === "notAllowed") return "notAllowed";
+  return null;
+}
 
 export default FilterOption;
