@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { ChevronDown } from "lucide-react";
@@ -14,7 +15,7 @@ import useFilterStore from "@/stores/useFiltereStore";
 interface OptionType {
   id: string;
   label: string;
-  value: number | string; // The actual value to use with the API
+  value: number | string;
 }
 
 interface Props {
@@ -29,15 +30,12 @@ const FilterOption = ({ label, paramName, options = [], filterSetter }: Props) =
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Get the current selected value from the store
   const currentValue = useCurrentValue(paramName);
 
   const handleSelect = (option: OptionType) => {
     const isSelected = currentValue === option.id;
-    // If already selected, clear the filter, otherwise set the new value
     filterSetter(isSelected ? null : option.value);
 
-    // Update the URL
     const url = qs.stringifyUrl(
       {
         url: pathname,
@@ -93,8 +91,7 @@ const FilterOption = ({ label, paramName, options = [], filterSetter }: Props) =
   );
 };
 
-// Helper function to determine the current value from the store
-// This will need to be customized based on your specific filter structure
+
 function useCurrentValue(paramName: string): string | null {
   const filters = useFilterStore(state => state.filters);
   
@@ -112,7 +109,6 @@ function useCurrentValue(paramName: string): string | null {
   }
 }
 
-// Helper functions to map API values back to UI IDs
 function getPropertyTypeId(type?: number): string | null {
   if (!type) return null;
   const map: Record<number, string> = {
