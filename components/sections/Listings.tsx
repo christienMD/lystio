@@ -22,6 +22,15 @@ const Listings = () => {
     setViewType(view);
   };
 
+  const getSortOption = (sort: Record<string, "asc" | "desc"> | undefined) => {
+    if (!sort) return "relevance";
+    const [field, order] = Object.entries(sort)[0];
+    if (field === "rent" && order === "asc") return "price_asc";
+    if (field === "rent" && order === "desc") return "price_desc";
+    if (field === "createdAt" && order === "desc") return "newest";
+    return "relevance";
+  };
+
   const handleSortChange = (sort: string) => {
     if (sort === "price_asc") {
       setSort("asc", "rent");
@@ -73,7 +82,7 @@ const Listings = () => {
             title="Listing around me"
             count={totalCount || listings.length}
             currentView={viewType}
-            // currentSort={getSortOption(filters.sort)}
+            currentSort={getSortOption(filters.sort)}
             onViewChange={handleViewChange}
             onSortChange={handleSortChange}
           />
