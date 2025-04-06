@@ -12,6 +12,8 @@ interface FilterState {
   setPriceRange: (min: number, max: number) => void;
   setSort: (sort: "asc" | "desc" | null, field: "rent" | "createdAt" | "distance" | "size" | "countLeads") => void;
   setPage: (page: number) => void;
+  setDeposit: (depositRequired: string | null) => void;
+  setLivingRooms: (livingRoomsCount: number | null) => void;
   resetFilters: () => void;
 }
 
@@ -89,6 +91,27 @@ const useFilterStore = create<FilterState>((set) => ({
   resetFilters: () => set({
     filters: {...DEFAULT_FILTER_PAYLOAD, paging: {pageSize: 4, page: 1}}
   }),
+
+  setDeposit: (depositRequired) => set((state) => ({
+    filters: {
+      ...state.filters,
+      filter: {
+        ...state.filters.filter,
+        rentDeposit: depositRequired === "required" ? [1, 9999999] : [0, 0]
+      }
+    }
+  })),
+  
+  setLivingRooms: (livingRoomsCount) => set((state) => ({
+    filters: {
+      ...state.filters,
+      filter: {
+        ...state.filters.filter,
+        
+        rooms: livingRoomsCount ? [livingRoomsCount, 99] : undefined
+      }
+    }
+  })),
 }));
 
 export default useFilterStore;

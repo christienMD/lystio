@@ -1,5 +1,5 @@
 import Listings from "@/components/sections/Listings";
-import ListsHeader from "@/components/sections/ListsHeader";
+import Header from "@/components/sections/Header";
 import Navbar from "@/components/sections/Navbar";
 import SearchInput from "@/components/SearchInput";
 
@@ -10,10 +10,10 @@ export default function Home() {
       <div className="sm:hidden my-4 w-full flex items-center justify-center px-4">
         <SearchInput />
       </div>
-      <ListsHeader />
+      <Header />
       <Listings />
     </>
   );
 }
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ListingCard from "@/components/cards/ListingCard";
 import ListingHeader from "./ListingHeader";
 import GooleMapListing from "./GooleMapListing";
@@ -47,6 +47,12 @@ const Listings = () => {
     }
   };
 
+  useEffect(() => {
+    if (error) {
+      console.error("Listings error:", error);
+    }
+  }, [error]);
+
   if (error) {
     return (
       <div className="container mx-auto py-4 px-3 sm:py-6 sm:px-4">
@@ -65,7 +71,7 @@ const Listings = () => {
         <div className="order-1 lg:order-2 lg:w-1/2">
           <ListingHeader
             title="Listing around me"
-            count={totalCount || listings.length || 0}
+            count={totalCount || listings.length}
             currentView={viewType}
             // currentSort={getSortOption(filters.sort)}
             onViewChange={handleViewChange}

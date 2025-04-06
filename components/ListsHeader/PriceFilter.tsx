@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
+import useFilterStore from "@/stores/useFiltereStore";
 
 interface Props {
   defaultMin?: number;
@@ -20,8 +21,8 @@ interface Props {
 }
 
 const PriceFilter = ({ 
-  defaultMin = 300, 
-  defaultMax = 500,
+  defaultMin = 0, 
+  defaultMax = 9_999_999,
   min = 0,
   max = 10000,
 }: Props) => {
@@ -31,14 +32,16 @@ const PriceFilter = ({
   const router = useRouter();
   const searchParams = useSearchParams();
   
-  // Get price values from URL or use defaults
   const minPrice = searchParams.get("minPrice") ? parseInt(searchParams.get("minPrice")!) : defaultMin;
   const maxPrice = searchParams.get("maxPrice") ? parseInt(searchParams.get("maxPrice")!) : defaultMax;
   
-  // Update local state when URL changes
+  const setPriceRange = useFilterStore(state => state.setPriceRange);
+  
   useEffect(() => {
     setLocalValues([minPrice, maxPrice]);
-  }, [minPrice, maxPrice]);
+    
+    setPriceRange(minPrice, maxPrice);
+  }, [minPrice, maxPrice, setPriceRange]);
   
   const handleApply = () => {
     const url = qs.stringifyUrl(
@@ -54,6 +57,8 @@ const PriceFilter = ({
     );
     
     router.push(url);
+    
+    setPriceRange(localValues[0], localValues[1]);
   };
 
   const handleReset = () => {

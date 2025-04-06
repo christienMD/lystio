@@ -1,8 +1,10 @@
 "use client";
 
 import React from "react";
+
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import useFilterStore from "@/stores/useFiltereStore";
+
 import FilterOption from "../ListsHeader/FilterOption";
 import SortButton from "../ListsHeader/SortButton";
 import PriceFilter from "../ListsHeader/PriceFilter";
@@ -16,9 +18,8 @@ const propertyTypeOptions = [
 ];
 
 const rentOptions = [
-  { id: "monthly", label: "Monthly", value: "month" },
-  { id: "weekly", label: "Weekly", value: "week" },
-  { id: "daily", label: "Daily", value: "day" },
+  { id: "rent", label: "Rent", value: "rent" },
+  { id: "buy", label: "Buy", value: "buy" },
 ];
 
 const apartmentOptions = [
@@ -43,8 +44,8 @@ const livingRoomsOptions = [
 ];
 
 const petsOptions = [
-  { id: "allowed", label: "Allowed", value: "allowed" },
-  { id: "notAllowed", label: "Not Allowed", value: "notAllowed" },
+  { id: "dogs", label: "Dogs Allowed", value: "dogs" },
+  { id: "cats", label: "Cats Allowed", value: "cats" },
 ];
 
 const depositOptions = [
@@ -59,12 +60,13 @@ const sortOptions = [
   { id: "price_desc", label: "Price: High to Low" },
 ];
 
-const ListsHeader = () => {
+const Header = () => {
   const setPropertyType = useFilterStore((state) => state.setPropertyType);
   const setRentType = useFilterStore((state) => state.setRentType);
   const setRoomsBed = useFilterStore((state) => state.setRoomsBed);
   const setPets = useFilterStore((state) => state.setPets);
-  // const setPriceRange = useFilterStore(state => state.setPriceRange);
+  const setLivingRooms = useFilterStore((state) => state.setLivingRooms);
+  const setDeposit = useFilterStore((state) => state.setDeposit);
 
   return (
     <div className="w-full border-b border-gray-200 bg-white">
@@ -99,7 +101,7 @@ const ListsHeader = () => {
               label="Living rooms"
               paramName="livingRooms"
               options={livingRoomsOptions}
-              filterSetter={() => {}}
+              filterSetter={setLivingRooms}
             />
             <FilterOption
               label="Pets"
@@ -111,16 +113,11 @@ const ListsHeader = () => {
               label="Deposit"
               paramName="deposit"
               options={depositOptions}
-              filterSetter={() => {}}
+              filterSetter={setDeposit}
             />
 
             <div className="ml-2">
-              <PriceFilter
-                defaultMin={300}
-                defaultMax={500}
-                min={0}
-                max={10000}
-              />
+              <PriceFilter min={0} max={1_000_000} />
             </div>
 
             <div className="ml-auto flex items-center">
@@ -134,4 +131,4 @@ const ListsHeader = () => {
   );
 };
 
-export default ListsHeader;
+export default Header;
