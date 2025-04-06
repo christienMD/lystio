@@ -23,7 +23,7 @@ const Listings = () => {
   };
 
   const getSortOption = (sort: Record<string, "asc" | "desc"> | undefined) => {
-    if (!sort) return "relevance";
+    if (!sort || Object.keys(sort).length === 0) return "relevance";
     const [field, order] = Object.entries(sort)[0];
     if (field === "rent" && order === "asc") return "price_asc";
     if (field === "rent" && order === "desc") return "price_desc";

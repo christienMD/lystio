@@ -20,7 +20,7 @@ interface Props {
 }
 
 const sortOptions = [
-  { id: "relevance", label: "Relevance" },
+  { id: "relevance", label: "Sort by Relevance" },
   { id: "price_asc", label: "Price: Low to High" },
   { id: "price_desc", label: "Price: High to Low" },
   { id: "date", label: "Newest" },
@@ -106,7 +106,7 @@ const ListingHeader = ({
         {/* Sort dropdown */}
         <DropdownMenu open={sortOpen} onOpenChange={setSortOpen}>
           <DropdownMenuTrigger className="flex items-center gap-1 text-xs xs:text-sm whitespace-nowrap focus:outline-none">
-            <span>{currentSortOption?.label || "Sort by"}</span>
+            <span>{currentSortOption?.label || "Sort"}</span>
             <ArrowUpDown size={14} className="text-gray-500 ml-1" />
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-56">
