@@ -30,7 +30,6 @@ const ListingCard = ({ data, className = "" }: Props) => {
       .map(m => m.cdnUrl)
   : [];
 
-// Use default image if no images are available
 const listingImages = images.length > 0 ? images : [defaultImage];
 
   const formattedAddress = `${data.address}, ${data.zip} ${data.city}`;
