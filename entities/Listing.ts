@@ -1,4 +1,9 @@
-// src/entities/Listing.ts
+
+
+interface Location {
+    type?: string;
+    coordinates?: [number, number];
+  }
 export interface Listing {
     id: number;
     title: string;
@@ -24,7 +29,7 @@ export interface Listing {
     rentDeposit: number;
     rentComission: number;
     amenities?: number[];
-    location?: number[];
+    location?: Location | null;
     locationIsExact?: boolean;
     locationRadius?: number;
     createdAt: string;

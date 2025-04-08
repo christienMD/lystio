@@ -1,8 +1,9 @@
 import React from "react";
+import Link from "next/link";
+
 import Logo from "../Logo";
 import SearchInput from "../SearchInput";
 import UserButton from "../UserButton";
-import Link from "next/link";
 
 const Navbar = () => {
   return (

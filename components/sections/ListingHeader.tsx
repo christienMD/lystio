@@ -1,14 +1,15 @@
 "use client";
 
+import { ArrowUpDown, Grid, LayoutGrid, List } from "lucide-react";
+import Image from "next/image";
+import { useState } from "react";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ArrowUpDown, Grid, LayoutGrid, List } from "lucide-react";
-import Image from "next/image";
-import { useState } from "react";
 
 interface Props {
   title: string;

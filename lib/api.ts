@@ -109,24 +109,38 @@ export async function fetchListings(
 }
 
 export async function fetchMapListings(
-  filterPayload: ListingsPayload = DEFAULT_FILTER_PAYLOAD
-) {
-  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
-
-  const response = await fetch(
-    `${baseUrl}${API_ENDPOINTS.TENEMENT_SEARCH_MAP}`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    filterPayload: ListingsPayload = DEFAULT_FILTER_PAYLOAD
+  ) {
+    const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+  
+    const payload = {
+      ...filterPayload,
+      filter: {
+        ...filterPayload.filter,
+        rent: filterPayload.filter.rent || [0, 9999999]
       },
-      body: JSON.stringify(filterPayload),
+      zoom: 13,
+      snap: 0
+    };
+  
+    console.log('Map API request payload:', payload);
+  
+    const response = await fetch(
+      `${baseUrl}${API_ENDPOINTS.TENEMENT_SEARCH_MAP}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      }
+    );
+  
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      console.error('Map API error:', errorData);
+      throw new Error(`API error: ${response.status}. ${JSON.stringify(errorData)}`);
     }
-  );
-
-  if (!response.ok) {
-    throw new Error(`API error: ${response.status}`);
+  
+    return response.json();
   }
-
-  return response.json();
-}

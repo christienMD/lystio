@@ -21,9 +21,9 @@ interface Props {
 }
 
 const PriceFilter = ({ 
-  defaultMin = 0, 
+  defaultMin = 1, 
   defaultMax = 9_999_999,
-  min = 0,
+  min = 1,
   max = 10000,
 }: Props) => {
   const [localValues, setLocalValues] = useState<[number, number]>([defaultMin, defaultMax]);

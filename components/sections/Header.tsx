@@ -117,7 +117,7 @@ const Header = () => {
             />
 
             <div className="ml-2">
-              <PriceFilter min={0} max={1_000_000} />
+              <PriceFilter min={1} max={1_000_000} />
             </div>
 
             <div className="ml-auto flex items-center">

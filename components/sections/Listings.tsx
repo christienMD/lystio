@@ -3,18 +3,25 @@
 import { useEffect, useState } from "react";
 import ListingCard from "@/components/cards/ListingCard";
 import ListingHeader from "./ListingHeader";
-import GooleMapListing from "./GooleMapListing";
+import MapboxListing from "./MapboxListing";
 import { useListings } from "@/hooks/useListings";
 import ListingSkeleton from "../skeletons/ListingSkeleton";
 import useFilterStore from "@/stores/useFiltereStore";
 
 const Listings = () => {
-  const filters = useFilterStore(state => state.filters);
-  const setSort = useFilterStore(state => state.setSort);
-  
+  const filters = useFilterStore((state) => state.filters);
+  const setSort = useFilterStore((state) => state.setSort);
+  const [selectedListingId, setSelectedListingId] = useState<
+    number | undefined
+  >(undefined);
+
   const { data, isLoading, error } = useListings(filters);
   const listings = data?.res || [];
   const totalCount = data?.paging?.totalCount || 0;
+
+  const handleSelectListing = (id: number) => {
+    setSelectedListingId((prevId) => (prevId === id ? undefined : id));
+  };
 
   const [viewType, setViewType] = useState<"grid" | "list" | "compact">("grid");
 
@@ -73,8 +80,11 @@ const Listings = () => {
   return (
     <div className="container mx-auto py-4 px-3 sm:py-6 sm:px-4">
       <div className="flex flex-col lg:flex-row gap-4 sm:gap-6">
-        <div className="order-2 lg:order-1 lg:w-1/2 bg-gray-100 rounded-lg min-h-[300px] sm:min-h-[400px]">
-          <GooleMapListing />
+        <div className="order-2 lg:order-1 lg:w-1/2 bg-gray-100 rounded-lg min-h-[300px]">
+          <MapboxListing
+            selectedListingId={selectedListingId}
+            onSelectListing={handleSelectListing}
+          />
         </div>
 
         <div className="order-1 lg:order-2 lg:w-1/2">
@@ -109,7 +119,12 @@ const Listings = () => {
                 <ListingCard
                   key={listing.id}
                   data={listing}
-                  className={viewType === "list" ? "flex-card" : ""}
+                  id={`listing-${listing.id}`}
+                  className={`${viewType === "list" ? "flex-card" : ""} ${
+                    selectedListingId === listing.id ? "selected-card" : ""
+                  }`}
+                  onClick={() => handleSelectListing(listing.id)}
+                  isSelected={selectedListingId === listing.id}
                 />
               ))}
             </div>
@@ -120,4 +135,4 @@ const Listings = () => {
   );
 };
 
-export default Listings
+export default Listings;
