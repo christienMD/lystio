@@ -30,9 +30,10 @@ interface MapCluster {
   rentPerRange: [number | null, number | null];
 }
 
+
 const MapboxListing = ({ selectedListingId, onSelectListing }: Props) => {
   const [popupInfo, setPopupInfo] = useState<any>(null);
-  const [previewInfo, setPreviewInfo] = useState<MapCluster | null>(null);
+  const [hoveredMarkerId, setHoveredMarkerId] = useState<number | null>(null);
   
   const mapRef = useRef<MapRef>(null);
   
@@ -55,7 +56,6 @@ const MapboxListing = ({ selectedListingId, onSelectListing }: Props) => {
       return;
     }
     
-
     const selected = listings.find(listing => listing.id === selectedListingId);
     if (selected) {
       setPopupInfo(selected);
@@ -74,7 +74,6 @@ const MapboxListing = ({ selectedListingId, onSelectListing }: Props) => {
     }
   }, [selectedListingId, listings, mapClusters]);
 
-
   useEffect(() => {
     if (!mapClusters.length || !mapRef.current) return;
     
@@ -92,7 +91,6 @@ const MapboxListing = ({ selectedListingId, onSelectListing }: Props) => {
         { west: 180, south: 90, east: -180, north: -90 }
       );
       
-
       const sw = [bounds.west - 0.02, bounds.south - 0.02];
       const ne = [bounds.east + 0.02, bounds.north + 0.02];
       
@@ -197,6 +195,7 @@ const MapboxListing = ({ selectedListingId, onSelectListing }: Props) => {
           const [lng, lat] = cluster.pt;
           const isSelected = selectedListingId && cluster.ids.includes(selectedListingId);
           const isCluster = cluster.count > 1;
+          const isHovered = hoveredMarkerId === index;
           
           return (
             <Marker
@@ -213,11 +212,8 @@ const MapboxListing = ({ selectedListingId, onSelectListing }: Props) => {
                   transition-colors
                 `}
                 onClick={() => handleMarkerClick(cluster)}
-                onMouseEnter={() => setPreviewInfo(cluster)}
-                onFocus={() => setPreviewInfo(cluster)}
-                onMouseLeave={() => setPreviewInfo(null)}
-                onBlur={() => setPreviewInfo(null)}
-                tabIndex={0}
+                onPointerEnter={() => setHoveredMarkerId(index)}
+                onPointerLeave={() => setHoveredMarkerId(null)}
               >
                 {isCluster ? (
                   cluster.count
@@ -226,11 +222,9 @@ const MapboxListing = ({ selectedListingId, onSelectListing }: Props) => {
                 )}
               </div>
               
-              {/* Hover Preview Card */}
-              {previewInfo === cluster && !isCluster && cluster.ids.length === 1 && !popupInfo && (
+              {isHovered && !isCluster && cluster.ids.length === 1 && !popupInfo && (
                 <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-64 z-10">
                   <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                    {/* Preview Image */}
                     {cluster.ids[0] && listingsById[cluster.ids[0]]?.media?.[0]?.cdnUrl && (
                       <div className="h-32 bg-gray-200">
                         <img 
@@ -241,7 +235,6 @@ const MapboxListing = ({ selectedListingId, onSelectListing }: Props) => {
                       </div>
                     )}
                     
-                    {/* Preview Content */}
                     <div className="p-3">
                       <div className="font-semibold text-base mb-1 truncate">
                         {cluster.ids[0] && listingsById[cluster.ids[0]]?.title || "Property"}
@@ -278,7 +271,6 @@ const MapboxListing = ({ selectedListingId, onSelectListing }: Props) => {
           );
         })}
         
-        {/* Selected Property Popup */}
         {popupInfo && (
           <Popup
             longitude={mapClusters.find(c => c.ids.includes(popupInfo.id))?.pt[0] || 0}
@@ -330,7 +322,6 @@ const MapboxListing = ({ selectedListingId, onSelectListing }: Props) => {
         </div>
       )}
       
-      {/* Custom Styles for Popup */}
       <style jsx global>{`
         .property-popup .mapboxgl-popup-content {
           padding: 0;

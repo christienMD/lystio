@@ -9,6 +9,7 @@ interface FilterState {
   setRentType: (rentType: string | null) => void;
   setRoomsBed: (roomsBed: number | null) => void;
   setPets: (pets: string | null) => void;
+  setFilters: (newFilters: ListingsPayload) => void;
   setPriceRange: (min: number, max: number) => void;
   setSort: (sort: "asc" | "desc" | null, field: "rent" | "createdAt" | "distance" | "size" | "countLeads") => void;
   setPage: (page: number) => void;
@@ -20,6 +21,10 @@ interface FilterState {
 // Create store
 const useFilterStore = create<FilterState>((set) => ({
   filters: {...DEFAULT_FILTER_PAYLOAD, paging: {pageSize: 4, page: 1}},
+
+  setFilters: (newFilters) => set(() => ({
+    filters: newFilters
+  })),
   
   setPropertyType: (type) => set((state) => ({
     filters: {

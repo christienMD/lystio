@@ -80,7 +80,7 @@ const Listings = () => {
   return (
     <div className="container mx-auto py-4 px-3 sm:py-6 sm:px-4">
       <div className="flex flex-col lg:flex-row gap-4 sm:gap-6">
-        <div className="order-2 lg:order-1 lg:w-1/2 bg-gray-100 rounded-lg min-h-[300px]">
+        <div className="order-2 lg:order-1 lg:w-1/2 bg-gray-100 rounded-lg h-[600px] md:h-[400px] lg:h-auto">
           <MapboxListing
             selectedListingId={selectedListingId}
             onSelectListing={handleSelectListing}

@@ -61,7 +61,7 @@ const ListingCard = ({
       className={cn(
         "overflow-hidden border border-gray-200 transition-all duration-200",
         isList ? "flex flex-col sm:flex-row" : "",
-        isSelected ? "ring-2 ring-gray-500 ring-offset-1" : "",
+        isSelected ? "ring-2 ring-gray-300 ring-offset-1" : "",
         className
       )}
       onClick={onClick}
