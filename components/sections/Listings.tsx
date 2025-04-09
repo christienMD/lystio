@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+
 import ListingCard from "@/components/cards/ListingCard";
-import ListingHeader from "./ListingHeader";
-import MapboxListing from "./MapboxListing";
+import ListingHeader from "@/components/sections/ListingHeader";
+import MapboxListing from "@/components/sections/MapboxListing";
+import ListingSkeleton from "@/components/skeletons/ListingSkeleton";
+
 import { useListings } from "@/hooks/useListings";
-import ListingSkeleton from "../skeletons/ListingSkeleton";
 import useFilterStore from "@/stores/useFiltereStore";
 
 const Listings = () => {

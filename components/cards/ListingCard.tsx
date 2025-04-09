@@ -9,10 +9,10 @@ import "swiper/css/pagination";
 
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import VerifiedBadge from "@/components/VerifiedBadge";
-import { formatDate } from "@/lib/utils";
 import { cn } from "@/lib/utils";
 
+import VerifiedBadge from "@/components/VerifiedBadge";
+import { formatDate } from "@/lib/utils";
 import { Listing } from "@/entities/Listing";
 
 interface Props {

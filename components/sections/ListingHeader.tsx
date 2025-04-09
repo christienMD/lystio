@@ -1,8 +1,8 @@
 "use client";
 
-import { ArrowUpDown, Grid, LayoutGrid, List } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
+import { ArrowUpDown, Grid, LayoutGrid, List } from "lucide-react";
 
 import {
   DropdownMenu,
@@ -73,7 +73,7 @@ const ListingHeader = ({
       </div>
 
       <div className="flex items-center gap-2 xs:gap-4 mt-2 xs:mt-0">
-        {/* View type tabs */}
+        {/* View tabs */}
         <div className="flex border rounded-md overflow-hidden">
           <button
             onClick={() => handleViewClick("compact")}

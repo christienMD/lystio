@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import qs from "query-string";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
+
 import useFilterStore from "@/stores/useFiltereStore";
 
 interface Props {
